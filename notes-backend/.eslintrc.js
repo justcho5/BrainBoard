@@ -5,7 +5,7 @@ module.exports = {
     es2021: true,
     jest: true,
   },
-  extends: ["airbnb-base", "prettier"],
+  extends: ["eslint:recommended", "prettier"],
   overrides: [
     {
       env: {
