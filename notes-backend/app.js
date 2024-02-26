@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-// eslint-disable-next-line import/no-extraneous-dependencies
 require("express-async-errors");
 
 const app = express();
