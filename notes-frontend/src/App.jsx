@@ -68,10 +68,23 @@ const App = () => {
 
   // Add note handler
   const addNote = (noteObject) => {
-    noteService.create(noteObject).then((responseBody) => {
-      setNotes([{ ...responseBody, user: { name: user.name } }, ...notes]);
-      console.log(responseBody);
-    });
+    noteService
+      .create(noteObject)
+      .then((responseBody) => {
+        setNotes([{ ...responseBody, user: { name: user.name } }, ...notes]);
+      })
+      .catch((error) => {
+        setErrorMessage(error.error);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+
+        if (error.error === "token expired") {
+          setUser(null);
+          noteService.setToken(null);
+          window.localStorage.removeItem("loggedNoteappUser");
+        }
+      });
   };
 
   const notesToShow = showAll ? notes : notes.filter((note) => note.important);

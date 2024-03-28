@@ -11,12 +11,15 @@ const getAll = () => {
 };
 
 const create = async (newObject) => {
-  const config = {
-    headers: { Authorization: token },
-  };
-  const response = await axios.post(baseUrl, newObject, config);
-
-  return response.data;
+  try {
+    const config = {
+      headers: { Authorization: token },
+    };
+    const response = await axios.post(baseUrl, newObject, config);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
 };
 
 const update = (id, newObject) => {
