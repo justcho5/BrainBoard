@@ -12,10 +12,10 @@ import { Home } from "./pages/Home";
 import { SignUp } from "./pages/SignUp";
 const Footer = () => {
   return (
-    <div className="mt-auto">
+    <footer className="mt-auto">
       <br />
       <em>Note app 2023</em>
-    </div>
+    </footer>
   );
 };
 const App = () => {

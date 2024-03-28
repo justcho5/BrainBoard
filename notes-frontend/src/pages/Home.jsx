@@ -87,13 +87,21 @@ export const Home = () => {
   };
   return (
     <div>
-      <NotesTable
-        notes={notesToShow}
-        toggleImportanceOf={toggleImportanceOf}
-        deleteNote={deleteNote}
-        addNote={addNote}
-        canDelete={true}
-      />
+      {notesToShow.length > 0 ? (
+        <NotesTable
+          notes={notesToShow}
+          toggleImportanceOf={toggleImportanceOf}
+          deleteNote={deleteNote}
+          addNote={addNote}
+          canDelete={true}
+        />
+      ) : (
+        <div>
+          <p>Sign in to see your notes or try with the following login:</p>
+          <p>Username: mysticWanderer88</p>
+          <p>Password: w@nderl0st</p>
+        </div>
+      )}
     </div>
   );
 };
