@@ -6,9 +6,10 @@ import { LoginForm } from "./components/LoginForm";
 import { Togglable } from "./components/Togglable";
 import { Button } from "react-bootstrap";
 import { useStore } from "./store";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Community } from "./pages/Community";
 import { Home } from "./pages/Home";
+import { SignUp } from "./pages/SignUp";
 const Footer = () => {
   return (
     <div className="mt-auto">
@@ -18,7 +19,6 @@ const Footer = () => {
   );
 };
 const App = () => {
-  const [notes, setNotes] = useState([]);
   const {
     user,
     updateUser,
@@ -26,13 +26,13 @@ const App = () => {
     updateErrorMessage,
     successMessage,
     updateSuccessMessage,
+    notes,
+    fetchNotes,
   } = useStore();
   // Get notes from DB
   useEffect(() => {
-    noteService.getAll().then((initialNotes) => {
-      setNotes(initialNotes.reverse());
-    });
-  }, []);
+    fetchNotes();
+  }, [fetchNotes]);
 
   // Check if user is logged in and set the User
   useEffect(() => {
@@ -83,30 +83,35 @@ const App = () => {
 
   return (
     <div className="container">
-      <div className="header">
-        <h1 className="text-3xl">BrainBoard</h1>
-
-        {user ? (
-          <div>
-            <span>Hi {user.name}</span>
-
-            <Button variant="secondary" onClick={handleLogout}>
-              Logout
-            </Button>
-          </div>
-        ) : (
-          loginForm()
-        )}
-      </div>
-      <Notification
-        errorMessage={errorMessage}
-        successMessage={successMessage}
-      />
-
       <Router>
+        <div className="header">
+          <div className="links">
+            <Link className="brainboard-link" to="/">
+              <h1 className="text-3xl">BrainBoard</h1>
+            </Link>
+            <Link to="/community">Community</Link>
+          </div>
+
+          {user ? (
+            <div>
+              <span>Hi {user.name}</span>
+
+              <Button variant="secondary" onClick={handleLogout}>
+                Logout
+              </Button>
+            </div>
+          ) : (
+            loginForm()
+          )}
+        </div>
+        <Notification
+          errorMessage={errorMessage}
+          successMessage={successMessage}
+        />
+
         <Routes>
           <Route path="/community" element={<Community allNotes={notes} />} />
-
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<Home allNotes={notes} />} />
         </Routes>
       </Router>
