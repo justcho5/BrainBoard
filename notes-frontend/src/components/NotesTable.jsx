@@ -8,12 +8,12 @@ export const NotesTable = ({
   toggleImportanceOf,
   deleteNote,
   addNote,
+  canDelete = false,
 }) => {
   const [showAll, setShowAll] = useState(true);
 
   const noteForm = () => <NoteForm createNote={addNote} />;
   const notesToShow = showAll ? notes : notes.filter((note) => note.important);
-  console.log("notes", notesToShow);
   return (
     <div>
       <div className="toolbar">
@@ -33,6 +33,7 @@ export const NotesTable = ({
                   toggleImportance={() => toggleImportanceOf(note.id)}
                   username={note.user?.name}
                   deleteNote={deleteNote}
+                  canDelete={canDelete}
                 />
               );
             })}
