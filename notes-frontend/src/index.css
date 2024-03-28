@@ -40,6 +40,10 @@ li {
   justify-content: space-between;
   align-items: center;
 }
+.header h1 {
+  padding: 0;
+  margin: 0;
+}
 .header div {
   display: flex;
   gap: 10px;
@@ -47,4 +51,12 @@ li {
 
 .header div p {
   margin: auto;
+}
+.header .links .brainboard-link {
+  text-decoration: none;
+}
+.header .links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
