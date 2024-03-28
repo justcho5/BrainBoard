@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import "./Note.css";
-const Note = ({ note, toggleImportance, username }) => {
+const Note = ({ note, toggleImportance, username, deleteNote }) => {
   const label = note.important ? "important" : "not important";
 
   return (
@@ -22,7 +22,9 @@ const Note = ({ note, toggleImportance, username }) => {
         <span>{username}</span>
       </td>
       <td>
-        <Button variant="link">Delete</Button>
+        <Button variant="link" onClick={() => deleteNote(note.id)}>
+          Delete
+        </Button>
       </td>
     </tr>
   );
