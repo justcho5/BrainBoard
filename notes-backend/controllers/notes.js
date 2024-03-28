@@ -47,6 +47,36 @@ notesRouter.post("/", async (request, response) => {
   response.status(201).json(savedNote);
 });
 
+notesRouter.put("/:id", async (request, response) => {
+  const { body } = request;
+  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET);
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: "token invalid" });
+  }
+  const user = await User.findById(decodedToken.id);
+  const note = await Note.findById(request.params.id);
+
+  // if not, return 403
+  if (user.id !== note.user.toString()) {
+    return response.status(403).json({ error: "permission denied" });
+  }
+  const noteToUpdate = {
+    content: body.content,
+    important: body.important,
+  };
+
+  const updatedNote = await Note.findByIdAndUpdate(
+    request.params.id,
+    noteToUpdate,
+    {
+      new: true,
+    }
+  ).populate("user", { username: 1, name: 1 });
+  console.log("updatedNote", updatedNote);
+
+  return response.status(201).json(updatedNote);
+});
+
 notesRouter.delete("/:id", async (request, response) => {
   // only allow deletion if user is the owner of the note
   const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET);
@@ -65,25 +95,10 @@ notesRouter.delete("/:id", async (request, response) => {
 
   // if so, delete
   await Note.findByIdAndDelete(request.params.id);
-  // remove note from user
+  //
   user.notes = user.notes.filter((note) => note.id !== request.params.id);
   await user.save();
   response.status(204).end();
-});
-
-notesRouter.put("/:id", (request, response, next) => {
-  const { body } = request;
-
-  const note = {
-    content: body.content,
-    important: body.important,
-  };
-
-  Note.findByIdAndUpdate(request.params.id, note, { new: true })
-    .then((updatedNote) => {
-      response.json(updatedNote);
-    })
-    .catch((error) => next(error));
 });
 
 module.exports = notesRouter;
