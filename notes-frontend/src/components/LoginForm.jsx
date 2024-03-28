@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Button } from "react-bootstrap";
+import "./LoginForm.css";
 export const LoginForm = ({ ...props }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -11,10 +13,9 @@ export const LoginForm = ({ ...props }) => {
   };
   return (
     <div>
-      <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        <div>
-          username
+        <div className="login-input">
+          <label>username:</label>
           <input
             id="username"
             type="text"
@@ -23,8 +24,8 @@ export const LoginForm = ({ ...props }) => {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div>
-          password
+        <div className="login-input">
+          <label>password:</label>
           <input
             id="password"
             type="password"
@@ -33,9 +34,9 @@ export const LoginForm = ({ ...props }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button id="login-button" type="submit">
-          login
-        </button>
+        <Button id="login-button" type="submit">
+          Login
+        </Button>
       </form>
     </div>
   );

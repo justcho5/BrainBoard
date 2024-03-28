@@ -1,11 +1,30 @@
-const Note = ({ note, toggleImportance }) => {
-  const label = note.important ? "make not important" : "make important";
+import { Button } from "react-bootstrap";
+import "./Note.css";
+const Note = ({ note, toggleImportance, username }) => {
+  const label = note.important ? "important" : "not important";
 
   return (
-    <li className="note">
-      <span>{note.content}</span>
-      <button onClick={toggleImportance}>{label}</button>
-    </li>
+    <tr>
+      <td>
+        <span className="hover:line-through cursor-pointer">
+          {note.content}
+        </span>
+      </td>
+      <td>
+        <span
+          onClick={toggleImportance}
+          className="cursor-pointer hover:font-medium"
+        >
+          {` ${label}`}
+        </span>
+      </td>
+      <td>
+        <span>{username}</span>
+      </td>
+      <td>
+        <Button variant="link">Delete</Button>
+      </td>
+    </tr>
   );
 };
 export default Note;

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Button } from "react-bootstrap";
+import "./NoteForm.css";
 
 export const NoteForm = ({ createNote }) => {
   const [newNote, setNewNote] = useState("");
@@ -7,20 +9,22 @@ export const NoteForm = ({ createNote }) => {
     event.preventDefault();
     createNote({
       content: newNote,
-      important: true,
+      important: false,
     });
     setNewNote("");
   };
   return (
     <div>
-      <h2>Create a new note</h2>
       <form onSubmit={addNote}>
         <input
           value={newNote}
-          placeholder="write note content here"
+          placeholder="Save a quick note, thought, or idea!"
           onChange={(e) => setNewNote(e.target.value)}
+          className="border border-gray-400 p-2 rounded"
         />
-        <button type="submit">save</button>
+        <Button type="submit" variant="secondary">
+          Save
+        </Button>
       </form>
     </div>
   );

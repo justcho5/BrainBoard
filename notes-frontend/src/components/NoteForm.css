@@ -1,0 +1,10 @@
+form {
+  display: flex;
+  gap: 10px;
+  min-width: 400px;
+  width: 100%;
+}
+
+input {
+  flex: 1;
+}

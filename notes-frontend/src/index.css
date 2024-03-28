@@ -1,4 +1,4 @@
-h1 {
+/* h1 {
   color: green;
   font-style: italic;
 }
@@ -23,4 +23,28 @@ li {
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+} */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header div {
+  display: flex;
+  gap: 10px;
+}
+
+.header div p {
+  margin: auto;
 }
