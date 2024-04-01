@@ -54,6 +54,11 @@ li {
 .header div {
   display: flex;
   gap: 10px;
+  align-items: center;
+}
+
+.header div span {
+  text-align: center;
 }
 
 .header div p {
@@ -70,8 +75,9 @@ li {
 .header {
   /* background-color: aqua; */
   display: flex;
-  flex-direction: column;
-  /* justify-content: space-between; */
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
   /* align-items: center; */
 }
 
