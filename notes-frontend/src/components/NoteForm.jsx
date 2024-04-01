@@ -15,10 +15,10 @@ export const NoteForm = ({ createNote }) => {
   };
   return (
     <div>
-      <form onSubmit={addNote}>
+      <form className="note-form" onSubmit={addNote}>
         <input
           value={newNote}
-          placeholder="Save a quick note, thought, or idea!"
+          placeholder="Save a quick thought, or idea!"
           onChange={(e) => setNewNote(e.target.value)}
           className="border border-gray-400 p-2 rounded"
         />

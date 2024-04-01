@@ -13,7 +13,7 @@ export const LoginForm = ({ ...props }) => {
   };
   return (
     <div>
-      <form onSubmit={handleLogin}>
+      <form className="login-form" onSubmit={handleLogin}>
         <div className="login-input">
           <label>username:</label>
           <input
