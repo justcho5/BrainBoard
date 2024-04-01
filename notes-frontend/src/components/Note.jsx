@@ -6,15 +6,10 @@ const Note = ({ note, toggleImportance, username, deleteNote, canDelete }) => {
   return (
     <tr>
       <td>
-        <span className="hover:line-through cursor-pointer">
-          {note.content}
-        </span>
+        <span className="note-content">{note.content}</span>
       </td>
       <td>
-        <span
-          onClick={toggleImportance}
-          className="cursor-pointer hover:font-medium"
-        >
+        <span onClick={toggleImportance} className="importance">
           {` ${label}`}
         </span>
       </td>

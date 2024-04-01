@@ -24,7 +24,22 @@ li {
   padding: 10px;
   margin-bottom: 10px;
 } */
+.importance {
+  cursor: pointer;
+}
 
+.importance:hover {
+  color: green;
+}
+/* .note-content:hover {
+  text-decoration-line: line-through;
+}
+.note-content {
+  text-decoration-line: line-through;
+}
+.note-content {
+  cursor: pointer;
+} */
 .container {
   gap: 10px;
   display: flex;
