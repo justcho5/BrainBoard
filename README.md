@@ -15,4 +15,4 @@ The app is deployed at https://brainboard.fly.dev/
 - [ ] Incorporate visualizations to see distribution on categories of thoughts
 - - - -
 ### License
-TODO: Add MIT license data here.
+[LICENSE](https://github.com/justcho5/BrainBoard/blob/main/LICENSE)
