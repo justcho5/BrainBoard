@@ -20,7 +20,6 @@ notesRouter.get("/:id", async (request, response) => {
 
 const getTokenFrom = (request) => {
   const authorization = request.get("authorization");
-  console.log(authorization);
   if (authorization && authorization.startsWith("Bearer ")) {
     return authorization.replace("Bearer ", "");
   }
@@ -72,7 +71,6 @@ notesRouter.put("/:id", async (request, response) => {
       new: true,
     }
   ).populate("user", { username: 1, name: 1 });
-  console.log("updatedNote", updatedNote);
 
   return response.status(201).json(updatedNote);
 });

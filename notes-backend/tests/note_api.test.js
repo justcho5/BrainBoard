@@ -23,7 +23,6 @@ describe("when there is initially some notes saved", () => {
     const savedNotes = await Note.insertMany(notes);
     user.notes = user.notes.concat(...savedNotes.map((b) => b.id));
 
-    console.log(user);
     await user.save();
   });
   test("notes are returned as json", async () => {
@@ -52,14 +51,12 @@ describe("when there is initially some notes saved", () => {
       const notesAtStart = await helper.notesInDb();
 
       const noteToView = notesAtStart[0];
-      console.log(noteToView);
       const resultNote = await api
         .get(`/api/notes/${noteToView.id}`)
         .expect(200)
         .expect("Content-Type", /application\/json/);
       const body = resultNote.body;
       body.user = body.user.toString();
-      console.log(body);
       expect(body[("content", "id", "important")]).toEqual(
         noteToView[("content", "id", "important")]
       );
@@ -157,7 +154,6 @@ describe("when there is initially some notes saved", () => {
       const targetUserNotes = allUsers.body.filter(
         (u) => u.username === targetUser.username
       )[0];
-      console.log(targetUserNotes);
       expect(targetUserNotes.notes.map((n) => n.content)).not.toContain(
         savedNote.body.content
       );
