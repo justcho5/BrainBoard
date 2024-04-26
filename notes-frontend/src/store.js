@@ -15,7 +15,6 @@ export const useStore = create((set) => ({
   updateNotes: (notes) => set({ notes }),
   fetchNotes: async () => {
     const initialNotes = await noteService.getAll();
-    console.log(initialNotes);
     set({ notes: initialNotes.reverse() });
   },
 }));

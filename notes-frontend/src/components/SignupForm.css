@@ -1,0 +1,11 @@
+.signup-form {
+  width: 40%;
+}
+
+.signup-form label {
+  float: left;
+}
+
+.signup-form input {
+  float: right;
+}

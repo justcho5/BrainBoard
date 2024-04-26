@@ -9,7 +9,7 @@ import { useStore } from "./store";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Community } from "./pages/Community";
 import { Home } from "./pages/Home";
-import { SignUp } from "./pages/SignUp";
+
 const Footer = () => {
   return (
     <footer className="mt-auto">
@@ -74,7 +74,7 @@ const App = () => {
   const loginForm = () => {
     return (
       <div>
-        <Togglable buttonLabel="Sign in">
+        <Togglable buttonLabel="Log in">
           <LoginForm handleLogin={handleLogin} />
         </Togglable>
       </div>
@@ -111,7 +111,6 @@ const App = () => {
 
         <Routes>
           <Route path="/community" element={<Community allNotes={notes} />} />
-          <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<Home allNotes={notes} />} />
         </Routes>
       </Router>

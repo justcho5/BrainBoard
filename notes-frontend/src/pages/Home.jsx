@@ -1,15 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { NotesTable } from "../components/NotesTable";
 import noteService from "../services/notes";
 import { useState } from "react";
 import { useStore } from "../store";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Togglable } from "../components/Togglable";
+import { SignupForm } from "../components/SignupForm";
+import { signup } from "../services/users";
 export const Home = () => {
-  const { user, updateUser, updateErrorMessage, notes, updateNotes } =
-    useStore();
+  const {
+    user,
+    updateUser,
+    updateSuccessMessage,
+    updateErrorMessage,
+    notes,
+    updateNotes,
+  } = useStore();
   const [notesToShow, setNotesToShow] = useState([]);
+  const signupFormRef = useRef();
   useEffect(() => {
     if (user) {
-      setNotesToShow(notes.filter((note) => note.user?.name === user.name));
+      setNotesToShow(
+        notes.filter((note) => note.user?.username === user.username)
+      );
     } else {
       setNotesToShow([]);
     }
@@ -85,9 +99,44 @@ export const Home = () => {
         }
       });
   };
+  const handleSignup = async (signupObject) => {
+    try {
+      if (signupObject.password !== signupObject.confirmPassword) {
+        throw new Error("Passwords do not match. Please try again.");
+      }
+      const { name, username, password } = signupObject;
+      await signup({ name, username, password });
+      signupFormRef.current.toggleVisibility();
+      updateSuccessMessage("Sign Up Successful. Please log in!");
+      setTimeout(() => {
+        updateSuccessMessage(null);
+      }, 5000);
+    } catch (exception) {
+      if (exception.error === "expected `username` to be unique") {
+        updateErrorMessage("Username already taken. Please try again.");
+        setTimeout(() => {
+          updateErrorMessage(null);
+        }, 5000);
+        return;
+      }
+      updateErrorMessage(exception.message || exception.error);
+      setTimeout(() => {
+        updateErrorMessage(null);
+      }, 5000);
+    }
+  };
+  const signupForm = () => {
+    return (
+      <div>
+        <Togglable buttonLabel="Sign Up" ref={signupFormRef}>
+          <SignupForm handleSignup={handleSignup} />
+        </Togglable>
+      </div>
+    );
+  };
   return (
     <div>
-      {notesToShow.length > 0 ? (
+      {user ? (
         <NotesTable
           notes={notesToShow}
           toggleImportanceOf={toggleImportanceOf}
@@ -100,6 +149,7 @@ export const Home = () => {
           <p>Sign in to see your notes or try with the following login:</p>
           <p>Username: mysticWanderer88</p>
           <p>Password: w@nderl0st</p>
+          {signupForm()}
         </div>
       )}
     </div>
